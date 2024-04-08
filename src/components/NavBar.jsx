@@ -1,40 +1,71 @@
-import React, { useState } from 'react';
-import MenuIcon from '@mui/icons-material/Menu';
-import CloseIcon from '@mui/icons-material/Close';
-import { Drawer, List, ListItem, ListItemText, Divider } from '@mui/material';
+import React from "react";
+import {
+  Navbar,
+  NavbarBrand,
+  NavbarContent,
+  NavbarItem,
+  NavbarMenuToggle,
+  NavbarMenu,
+  NavbarMenuItem,
+  Link,
+  Button,
+} from "@nextui-org/react";
+import { AcmeLogo } from "./ReciclarLogo.jsx";
 
-function HamburgerMenu() {
-  const [isOpen, setIsOpen] = useState(false);
+export default function App() {
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
+  const menuItems = [
+    "Profile",
+    "Dashboard",
+    "Activity",
+    "Analytics",
+    "System",
+    "Deployments",
+    "My Settings",
+    "Team Settings",
+    "Help & Feedback",
+    "Log Out",
+  ];
 
   return (
-    <>
-      <MenuIcon onClick={toggleMenu} />
-      <Drawer anchor="right" open={isOpen} onClose={toggleMenu}>
-        <List>
-          <ListItem button onClick={toggleMenu}>
-            <CloseIcon />
-          </ListItem>
-          <Divider />
-          <ListItem button>
-            <ListItemText primary="Inicio" />
-          </ListItem>
-          <ListItem button>
-            <ListItemText primary="Productos" />
-          </ListItem>
-          <ListItem button>
-            <ListItemText primary="Servicios" />
-          </ListItem>
-          <ListItem button>
-            <ListItemText primary="Contacto" />
-          </ListItem>
-        </List>
-      </Drawer>
-    </>
+
+    <Navbar isBordered onMenuOpenChange={setIsMenuOpen}>
+        <NavbarMenuToggle
+          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+        />
+        <NavbarContent className="hidden sm:flex gap-4" justify="center">
+          <NavbarBrand>
+            <AcmeLogo />
+            <p className="font-bold text-inherit">ACME</p>
+          </NavbarBrand>
+        </NavbarContent>
+     
+      <NavbarContent justify="end">
+        <NavbarItem className="lg:flex">
+          <Link href="/Login">Login</Link>
+        </NavbarItem>
+      </NavbarContent>
+      <NavbarMenu>
+        {menuItems.map((item, index) => (
+          <NavbarMenuItem key={`${item}-${index}`}>
+            <Link
+              color={
+                index === 2
+                  ? "primary"
+                  : index === menuItems.length - 1
+                  ? "danger"
+                  : "foreground"
+              }
+              className="w-full"
+              href={`/${item}`}
+              size="lg"
+            >
+              {item}
+            </Link>
+          </NavbarMenuItem>
+        ))}
+      </NavbarMenu>
+    </Navbar>
   );
 }
-
-export default HamburgerMenu;
