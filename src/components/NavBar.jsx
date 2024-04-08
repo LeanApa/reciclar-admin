@@ -16,10 +16,10 @@ export default function App() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const menuItems = [
-    "Profile",
-    "Dashboard",
-    "Activity",
-    "Analytics",
+    "Empresas",
+    "Usuarios",
+    "Posts",
+    "Reciclables",
     "System",
     "Deployments",
     "My Settings",
@@ -29,24 +29,31 @@ export default function App() {
   ];
 
   return (
-
-    <Navbar isBordered onMenuOpenChange={setIsMenuOpen}>
+    <Navbar onMenuOpenChange={setIsMenuOpen} maxWidth="full">
+      <NavbarContent>
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
         />
-        <NavbarContent className="hidden sm:flex gap-4" justify="center">
-          <NavbarBrand>
-            <AcmeLogo />
-            <p className="font-bold text-inherit">ACME</p>
-          </NavbarBrand>
-        </NavbarContent>
-     
+      </NavbarContent>
+
+      <NavbarContent className="sm:flex gap-4" justify="center">
+        <NavbarBrand>
+          <AcmeLogo />
+          <p className="hidden md:flex font-bold text-inherit">Reciclar Admin</p>
+        </NavbarBrand>
+        
+      </NavbarContent>
       <NavbarContent justify="end">
-        <NavbarItem className="lg:flex">
+        <NavbarItem className="hidden lg:flex">
           <Link href="/Login">Login</Link>
         </NavbarItem>
+        {/* <NavbarItem>
+          <Button as={Link} color="primary" href="#" variant="flat">
+            Sign Up
+          </Button>
+        </NavbarItem> */}
       </NavbarContent>
-      <NavbarMenu>
+      <NavbarMenu className="mt-5">
         {menuItems.map((item, index) => (
           <NavbarMenuItem key={`${item}-${index}`}>
             <Link
