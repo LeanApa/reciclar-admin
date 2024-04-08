@@ -20,11 +20,6 @@ export default function App() {
     "Usuarios",
     "Posts",
     "Reciclables",
-    "System",
-    "Deployments",
-    "My Settings",
-    "Team Settings",
-    "Help & Feedback",
     "Log Out",
   ];
 
