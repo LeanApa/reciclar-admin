@@ -33,9 +33,12 @@ export default function App() {
 
       <NavbarContent className="sm:flex gap-4" justify="center">
         <NavbarBrand>
+          <Link href="/" className="font-bold text-inherit">
           <AcmeLogo />
           <p className="hidden md:flex font-bold text-inherit">Reciclar Admin</p>
+          </Link>
         </NavbarBrand>
+        
         
       </NavbarContent>
       <NavbarContent justify="end">
