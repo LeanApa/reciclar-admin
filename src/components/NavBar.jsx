@@ -12,7 +12,7 @@ import {
 } from "@nextui-org/react";
 import { AcmeLogo } from "./ReciclarLogo.jsx";
 
-export default function App() {
+export default function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const menuItems = [
@@ -24,7 +24,7 @@ export default function App() {
   ];
 
   return (
-    <Navbar onMenuOpenChange={setIsMenuOpen} maxWidth="full">
+    <Navbar isBordered onMenuOpenChange={setIsMenuOpen} maxWidth="full">
       <NavbarContent>
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
@@ -63,7 +63,7 @@ export default function App() {
                   : "foreground"
               }
               className="w-full"
-              href={`/${item}`}
+              href={`/${item.toLowerCase()}`}
               size="lg"
             >
               {item}
