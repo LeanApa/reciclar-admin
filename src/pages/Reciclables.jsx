@@ -1,12 +1,12 @@
 import React from "react";
 
-const Usuarios = () => {
+const Reciclables = () => {
     console.log("llega acá")
   return (
     <div>
-      <p>hola a todos Usuarios</p>
+      <p>hola a todos Reciclables</p>
     </div>
   );
 };
 
-export default Usuarios;
+export default Reciclables;

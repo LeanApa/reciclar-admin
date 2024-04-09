@@ -1,12 +1,12 @@
 import React from "react";
 
-const Usuarios = () => {
+const Posts = () => {
     console.log("llega acá")
   return (
     <div>
-      <p>hola a todos Usuarios</p>
+      <p>hola a todos Posts</p>
     </div>
   );
 };
 
-export default Usuarios;
+export default Posts;

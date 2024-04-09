@@ -20,7 +20,7 @@ export default function NavBar() {
     "Usuarios",
     "Posts",
     "Reciclables",
-    "Log Out",
+    "LogOut",
   ];
 
   return (
@@ -65,7 +65,7 @@ export default function NavBar() {
               className="w-full"
               href={`/${item.toLowerCase()}`}
               size="lg"
-            >
+            onClick={() => setIsMenuOpen(false)}>
               {item}
             </Link>
           </NavbarMenuItem>
