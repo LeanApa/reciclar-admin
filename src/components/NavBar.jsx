@@ -15,13 +15,7 @@ import { AcmeLogo } from "./ReciclarLogo.jsx";
 export default function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
-  const menuItems = [
-    "Empresas",
-    "Usuarios",
-    "Posts",
-    "Reciclables",
-    "LogOut",
-  ];
+  const menuItems = ["Empresas", "Usuarios", "Posts", "Reciclables", "LogOut"];
 
   return (
     <Navbar isBordered onMenuOpenChange={setIsMenuOpen} maxWidth="full">
@@ -34,12 +28,12 @@ export default function NavBar() {
       <NavbarContent className="sm:flex gap-4" justify="center">
         <NavbarBrand>
           <Link href="/" className="font-bold text-inherit">
-          <AcmeLogo />
-          <p className="hidden md:flex font-bold text-inherit">Reciclar Admin</p>
+            <AcmeLogo />
+            <p className="hidden md:flex font-bold text-inherit">
+              Reciclar Admin
+            </p>
           </Link>
         </NavbarBrand>
-        
-        
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem className="hidden lg:flex">
@@ -65,7 +59,7 @@ export default function NavBar() {
               className="w-full"
               href={`/${item.toLowerCase()}`}
               size="lg"
-            onClick={() => setIsMenuOpen(false)}>
+            >
               {item}
             </Link>
           </NavbarMenuItem>
