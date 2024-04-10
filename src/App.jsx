@@ -13,13 +13,12 @@ function App() {
   return (
     <NextUIProvider navigate={navigate}>
       <NavBar></NavBar>
-      <p>prueba de que funiona to3</p>
       <Routes>
-        <Route path="/usuarios" element={<Usuarios/>} />
-        <Route path="/empresas" element={<Empresas/>} />
-        <Route path="/logout" element={<LogOut/>} />
-        <Route path="/posts" element={<Posts/>} />
-        <Route path="/reciclables" element={<Reciclables/>} />
+        <Route path="/usuarios" element={<Usuarios />} />
+        <Route path="/empresas" element={<Empresas />} />
+        <Route path="/logout" element={<LogOut />} />
+        <Route path="/posts" element={<Posts />} />
+        <Route path="/reciclables" element={<Reciclables />} />
       </Routes>
     </NextUIProvider>
   );
