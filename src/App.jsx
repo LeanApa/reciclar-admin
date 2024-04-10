@@ -7,6 +7,8 @@ import Empresas from "./pages/Empresas";
 import LogOut from "./pages/LogOut";
 import Posts from "./pages/Posts";
 import Reciclables from "./pages/Reciclables";
+import Home from "./pages/Home";
+import LogIn from "./pages/LogIn";
 
 function App() {
   const navigate = useNavigate();
@@ -14,6 +16,9 @@ function App() {
     <NextUIProvider navigate={navigate}>
       <NavBar></NavBar>
       <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/login" element={<LogIn />} />
         <Route path="/usuarios" element={<Usuarios />} />
         <Route path="/empresas" element={<Empresas />} />
         <Route path="/logout" element={<LogOut />} />

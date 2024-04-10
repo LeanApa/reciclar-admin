@@ -37,7 +37,7 @@ export default function NavBar() {
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem className="hidden lg:flex">
-          <Link href="/Login">Login</Link>
+          <Link href="/LogIn">Login</Link>
         </NavbarItem>
         {/* <NavbarItem>
           <Button as={Link} color="primary" href="#" variant="flat">
@@ -50,7 +50,7 @@ export default function NavBar() {
           <NavbarMenuItem key={`${item}-${index}`}>
             <Link
               color={
-                index === 2
+                location.pathname === `/${item.toLowerCase()}`
                   ? "primary"
                   : index === menuItems.length - 1
                   ? "danger"
