@@ -10,7 +10,7 @@ import {
   Link,
   Button,
 } from "@nextui-org/react";
-import { AcmeLogo } from "./ReciclarLogo.jsx";
+import { ReciclarLogo } from "./ReciclarLogo.jsx";
 
 export default function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -28,7 +28,7 @@ export default function NavBar() {
       <NavbarContent className="sm:flex gap-4" justify="center">
         <NavbarBrand>
           <Link href="/" className="font-bold text-inherit">
-            <AcmeLogo />
+            <ReciclarLogo />
             <p className="hidden md:flex font-bold text-inherit">
               Reciclar Admin
             </p>
@@ -36,7 +36,7 @@ export default function NavBar() {
         </NavbarBrand>
       </NavbarContent>
       <NavbarContent justify="end">
-        <NavbarItem className="hidden lg:flex">
+        <NavbarItem className="lg:flex">
           <Link href="/LogIn">Login</Link>
         </NavbarItem>
         {/* <NavbarItem>

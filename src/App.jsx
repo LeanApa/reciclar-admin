@@ -15,16 +15,18 @@ function App() {
   return (
     <NextUIProvider navigate={navigate}>
       <NavBar></NavBar>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/login" element={<LogIn />} />
-        <Route path="/usuarios" element={<Usuarios />} />
-        <Route path="/empresas" element={<Empresas />} />
-        <Route path="/logout" element={<LogOut />} />
-        <Route path="/posts" element={<Posts />} />
-        <Route path="/reciclables" element={<Reciclables />} />
-      </Routes>
+      <main className="flex justify-center items-center h-screen">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/login" element={<LogIn />} />
+          <Route path="/usuarios" element={<Usuarios />} />
+          <Route path="/empresas" element={<Empresas />} />
+          <Route path="/logout" element={<LogOut />} />
+          <Route path="/posts" element={<Posts />} />
+          <Route path="/reciclables" element={<Reciclables />} />
+        </Routes>
+      </main>
     </NextUIProvider>
   );
 }
