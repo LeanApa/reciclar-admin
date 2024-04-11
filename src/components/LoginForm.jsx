@@ -7,9 +7,8 @@ import {
   CardBody,
   CardFooter,
   Divider,
-  Link,
-  Image,
 } from "@nextui-org/react";
+import { useNavigate } from "react-router-dom";
 import { EyeFilledIcon } from "./EyeFilledIcon";
 import { EyeSlashFilledIcon } from "./EyeSlashFilledIcon";
 import { ReciclarLogo } from "./ReciclarLogo";
@@ -22,6 +21,7 @@ const LoginForm = () => {
   const toggleVisibility = () => setIsVisible(!isVisible);
   const [isInvalid, setIsInvalid] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleEmailChange = (e) => setEmail(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
@@ -53,6 +53,7 @@ const LoginForm = () => {
 
       const { accessToken } = data;
       sessionStorage.setItem("accessToken", accessToken);
+      navigate("/home");
     } catch (error) {
       console.error(error);
     }
