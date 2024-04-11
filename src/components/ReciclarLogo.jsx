@@ -5,7 +5,7 @@ export const ReciclarLogo = () => (
     alt="Reciclar logo"
     height={50}
     radius="sm"
-    src="https://res.cloudinary.com/doxkduvdk/image/upload/v1712793825/Tesis/s0fkzorrxhxxk4uvjwvn.jpg"
+    src="https://res.cloudinary.com/doxkduvdk/image/upload/v1712794922/Tesis/mpgnt7mzrn5s9dmaqkju.png"
     width={50}
   />
 );
