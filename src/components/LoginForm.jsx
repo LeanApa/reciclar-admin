@@ -9,8 +9,8 @@ import {
   Divider,
 } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
-import { EyeFilledIcon } from "./EyeFilledIcon";
-import { EyeSlashFilledIcon } from "./EyeSlashFilledIcon";
+import { EyeFilledIcon } from "./icons/EyeFilledIcon";
+import { EyeSlashFilledIcon } from "./icons/EyeSlashFilledIcon";
 import { ReciclarLogo } from "./ReciclarLogo";
 const apiUrl = import.meta.env.VITE_API_URL;
 
