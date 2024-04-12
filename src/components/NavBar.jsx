@@ -14,6 +14,7 @@ import { ReciclarLogo } from "./ReciclarLogo.jsx";
 
 export default function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const isLoggedIn = sessionStorage.getItem("accessToken");
 
   const menuItems = ["Empresas", "Usuarios", "Posts", "Reciclables", "LogOut"];
 
@@ -36,9 +37,14 @@ export default function NavBar() {
         </NavbarBrand>
       </NavbarContent>
       <NavbarContent justify="end">
-        <NavbarItem className="lg:flex">
-          <Link href="/login">Login</Link>
-        </NavbarItem>
+        {!isLoggedIn ? (
+          <NavbarItem className="lg:flex">
+            <Link href="/login">Login</Link>
+          </NavbarItem>
+        ) : (
+          ""
+        )}
+
         {/* <NavbarItem>
           <Button as={Link} color="primary" href="#" variant="flat">
             Sign Up
