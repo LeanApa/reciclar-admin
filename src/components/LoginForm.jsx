@@ -53,7 +53,7 @@ const LoginForm = () => {
 
       const { accessToken } = data;
       sessionStorage.setItem("accessToken", accessToken);
-      navigate("/home");
+      navigate("/empresas");
     } catch (error) {
       console.error(error);
     }

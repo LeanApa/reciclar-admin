@@ -1,5 +1,5 @@
 import React from "react";
-import { NavbarItem, Button, Link } from "@nextui-org/react";
+import { NavbarItem, Link } from "@nextui-org/react";
 
 const LogOutButton = () => {
   const handleLogOut = () => {
@@ -8,7 +8,7 @@ const LogOutButton = () => {
   return (
     <NavbarItem className="lg:flex color-danger">
       <Link onClick={handleLogOut} href="/login" color="danger">
-        LogOut
+        Log Out
       </Link>
     </NavbarItem>
   );

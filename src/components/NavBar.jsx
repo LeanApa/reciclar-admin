@@ -13,9 +13,8 @@ import {
 import { ReciclarLogo } from "./ReciclarLogo.jsx";
 import LogOutButton from "./LogOutButton.jsx";
 
-export default function NavBar() {
+export default function NavBar({ isLoggedIn }) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-  const isLoggedIn = sessionStorage.getItem("accessToken");
 
   const menuItems = ["Empresas", "Usuarios", "Posts", "Reciclables"];
 

@@ -4,27 +4,24 @@ import { NextUIProvider } from "@nextui-org/react";
 import { useNavigate, Routes, Route } from "react-router-dom";
 import Usuarios from "./pages/Usuarios";
 import Empresas from "./pages/Empresas";
-import LogOut from "./pages/LogOut";
 import Posts from "./pages/Posts";
 import Reciclables from "./pages/Reciclables";
-import Home from "./pages/Home";
 import LogIn from "./pages/LogIn";
 
 function App() {
   const navigate = useNavigate();
+  const isLoggedIn = sessionStorage.getItem("accessToken");
   return (
     <NextUIProvider navigate={navigate}>
-      <NavBar></NavBar>
+      <NavBar isLoggedIn={isLoggedIn}></NavBar>
       <main className="flex justify-center items-center h-screen">
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Home />} />
+          <Route path="/" element={<LogIn />} />
           <Route path="/login" element={<LogIn />} />
-          <Route path="/usuarios" element={<Usuarios />} />
-          <Route path="/empresas" element={<Empresas />} />
-          <Route path="/logout" element={<LogOut />} />
-          <Route path="/posts" element={<Posts />} />
-          <Route path="/reciclables" element={<Reciclables />} />
+          <Route path="/usuarios" element={<Usuarios isLoggedIn={isLoggedIn} />} />
+          <Route path="/empresas" element={<Empresas isLoggedIn={isLoggedIn} />} />
+          <Route path="/posts" element={<Posts isLoggedIn={isLoggedIn}/>} />
+          <Route path="/reciclables" element={<Reciclables isLoggedIn={isLoggedIn} />} />
         </Routes>
       </main>
     </NextUIProvider>

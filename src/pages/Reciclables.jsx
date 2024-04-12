@@ -1,10 +1,13 @@
 import React from "react";
+import ErrorAuth from "../components/ErrorAuth";
 
-const Reciclables = () => {
-    console.log("llega acá")
-  return (
+const Reciclables = ({ isLoggedIn }) => {
+  console.log("llega acá");
+  return !isLoggedIn ? (
+    <ErrorAuth isLoggedIn={isLoggedIn} />
+  ) : (
     <div>
-      <p>hola a todos Reciclables</p>
+      <p>¡Hola a todos desde Reciclables!</p>
     </div>
   );
 };
