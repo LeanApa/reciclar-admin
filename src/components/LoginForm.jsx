@@ -11,7 +11,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { EyeFilledIcon } from "./icons/EyeFilledIcon";
 import { EyeSlashFilledIcon } from "./icons/EyeSlashFilledIcon";
-import { ReciclarLogo } from "./ReciclarLogo";
+import { ReciclarLogo } from "./icons/ReciclarLogo";
 const apiUrl = import.meta.env.VITE_API_URL;
 
 const LoginForm = () => {

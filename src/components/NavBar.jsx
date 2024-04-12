@@ -10,7 +10,7 @@ import {
   Link,
   Button,
 } from "@nextui-org/react";
-import { ReciclarLogo } from "./ReciclarLogo.jsx";
+import { ReciclarLogo } from "./icons/ReciclarLogo.jsx";
 import LogOutButton from "./LogOutButton.jsx";
 
 export default function NavBar({ isLoggedIn }) {
