@@ -11,12 +11,13 @@ import {
   Button,
 } from "@nextui-org/react";
 import { ReciclarLogo } from "./ReciclarLogo.jsx";
+import LogOutButton from "./LogOutButton.jsx";
 
 export default function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const isLoggedIn = sessionStorage.getItem("accessToken");
 
-  const menuItems = ["Empresas", "Usuarios", "Posts", "Reciclables", "LogOut"];
+  const menuItems = ["Empresas", "Usuarios", "Posts", "Reciclables"];
 
   return (
     <Navbar isBordered onMenuOpenChange={setIsMenuOpen} maxWidth="full">
@@ -42,7 +43,7 @@ export default function NavBar() {
             <Link href="/login">Login</Link>
           </NavbarItem>
         ) : (
-          ""
+          <LogOutButton />
         )}
 
         {/* <NavbarItem>
@@ -58,8 +59,6 @@ export default function NavBar() {
               color={
                 location.pathname === `/${item.toLowerCase()}`
                   ? "primary"
-                  : index === menuItems.length - 1
-                  ? "danger"
                   : "foreground"
               }
               className="w-full"
