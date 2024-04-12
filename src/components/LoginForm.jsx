@@ -29,9 +29,6 @@ const LoginForm = () => {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      // Aquí puedes enviar los datos del formulario a tu servidor para autenticación
-      console.log("Email:", email);
-      console.log("Password:", password);
       const response = await fetch(`${apiUrl}/sessions/loginadmin`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
