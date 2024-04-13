@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import ErrorAuth from '../components/ErrorAuth'
+import ErrorAuth from "../components/ErrorAuth";
 import UserItem from "../components/UserItem";
 
 const apiUrl = import.meta.env.VITE_API_URL;
@@ -28,7 +28,7 @@ const User = ({ isLoggedIn }) => {
     <ErrorAuth isLoggedIn={isLoggedIn} />
   ) : (
     <div>
-      <UserItem user={user}/>
+      <UserItem user={user} isLoggedIn={isLoggedIn} />
     </div>
   );
 };

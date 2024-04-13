@@ -63,7 +63,7 @@ const Usuarios = ({ isLoggedIn }) => {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            accessToken: `${isLoggedIn}`,
+            "accessToken": `${isLoggedIn}`,
           },
         });
         const data = await response.json();
@@ -81,7 +81,7 @@ const Usuarios = ({ isLoggedIn }) => {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-          accessToken: `${isLoggedIn}`,
+          "accessToken": `${isLoggedIn}`,
         },
       });
       if (response.ok) {
@@ -334,9 +334,9 @@ const errorToast = (text)=>{
                 ))}
               </DropdownMenu>
             </Dropdown>
-            <Button color="primary" endContent={<PlusIcon />}>
+           {/*  <Button color="primary" endContent={<PlusIcon />}>
               Add New
-            </Button>
+            </Button> */}
           </div>
         </div>
         <div className="flex justify-between items-center">
