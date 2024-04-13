@@ -37,7 +37,7 @@ const columns = [
   { name: "EMAIL", uid: "email" },
   { name: "ACTIONS", uid: "actions" },
 ];
-const INITIAL_VISIBLE_COLUMNS = ["name", "role", "age", "actions"];
+const INITIAL_VISIBLE_COLUMNS = ["id", "name", "role", "age", "actions"];
 const apiUrl = import.meta.env.VITE_API_URL;
 
 const Usuarios = ({ isLoggedIn }) => {
@@ -52,8 +52,10 @@ const Usuarios = ({ isLoggedIn }) => {
     column: "age",
     direction: "ascending",
   });
+  const [deleted, setDeleted] = React.useState(false);
   const [page, setPage] = React.useState(1);
   const [users, setUsers] = React.useState([]);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -61,7 +63,7 @@ const Usuarios = ({ isLoggedIn }) => {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            accessToken: `${isLoggedIn}`,
+            "accessToken": `${isLoggedIn}`,
           },
         });
         const data = await response.json();
@@ -70,10 +72,23 @@ const Usuarios = ({ isLoggedIn }) => {
         console.log(error);
       }
     };
-
     fetchData();
-  }, []);
-  console.log(users);
+  }, [deleted]);
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(`${apiUrl}/users/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "accessToken": `${isLoggedIn}`,
+        },
+      });
+    setDeleted(!deleted)
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  console.log("aca esta", users);
   const hasSearchFilter = Boolean(filterValue);
 
   const headerColumns = React.useMemo(() => {
@@ -86,7 +101,6 @@ const Usuarios = ({ isLoggedIn }) => {
 
   const filteredItems = React.useMemo(() => {
     let filteredUsers = [...users];
-    console.log(filteredUsers);
 
     if (hasSearchFilter) {
       filteredUsers = filteredUsers.filter(
@@ -182,7 +196,9 @@ const Usuarios = ({ isLoggedIn }) => {
               <DropdownMenu>
                 <DropdownItem>View</DropdownItem>
                 <DropdownItem>Edit</DropdownItem>
-                <DropdownItem>Delete</DropdownItem>
+                <DropdownItem onClick={() => handleDelete(user._id)}>
+                  Delete
+                </DropdownItem>
               </DropdownMenu>
             </Dropdown>
           </div>
