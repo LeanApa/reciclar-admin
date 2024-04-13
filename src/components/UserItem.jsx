@@ -9,6 +9,7 @@ import {
   Image,
   Input,
   Button,
+  Avatar
 } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
 
@@ -63,13 +64,7 @@ const UserItem = ({ user, isLoggedIn }) => {
     <form onSubmit={handleSubmit}>
       <Card className="max-w-[1000px] w-[600px]">
         <CardHeader className="flex gap-3">
-          <Image
-            alt="nextui logo"
-            height={40}
-            radius="sm"
-            src="https://avatars.githubusercontent.com/u/86160567?s=200&v=4"
-            width={40}
-          />
+          <Avatar name={user.first_name}/>
           <div className="flex flex-col">
             <p className="text-md">
               {user.first_name} {user.last_name}
