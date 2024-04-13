@@ -30,12 +30,12 @@ const statusColorMap = {
   vacation: "warning",
 };
 const columns = [
-  {name: "ID", uid: "id", sortable: true},
-  {name: "NAME", uid: "name", sortable: true},
-  {name: "AGE", uid: "age", sortable: true},
-  {name: "ROLE", uid: "role", sortable: true},
-  {name: "EMAIL", uid: "email"},
-  {name: "ACTIONS", uid: "actions"},
+  { name: "ID", uid: "id", sortable: true },
+  { name: "NAME", uid: "name", sortable: true },
+  { name: "AGE", uid: "age", sortable: true },
+  { name: "ROLE", uid: "role", sortable: true },
+  { name: "EMAIL", uid: "email" },
+  { name: "ACTIONS", uid: "actions" },
 ];
 const INITIAL_VISIBLE_COLUMNS = ["name", "role", "age", "actions"];
 const apiUrl = import.meta.env.VITE_API_URL;
@@ -61,7 +61,7 @@ const Usuarios = ({ isLoggedIn }) => {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            "accessToken": `${isLoggedIn}`,
+            accessToken: `${isLoggedIn}`,
           },
         });
         const data = await response.json();
@@ -86,10 +86,13 @@ const Usuarios = ({ isLoggedIn }) => {
 
   const filteredItems = React.useMemo(() => {
     let filteredUsers = [...users];
+    console.log(filteredUsers);
 
     if (hasSearchFilter) {
-      filteredUsers = filteredUsers.filter((user) =>
-        user.name.toLowerCase().includes(filterValue.toLowerCase())
+      filteredUsers = filteredUsers.filter(
+        (user) =>
+          user.first_name?.toLowerCase().includes(filterValue.toLowerCase()) ||
+          user.last_name?.toLowerCase().includes(filterValue.toLowerCase())
       );
     }
     if (
@@ -127,12 +130,22 @@ const Usuarios = ({ isLoggedIn }) => {
     const cellValue = user[columnKey];
 
     switch (columnKey) {
+      case "id":
+        return (
+          <div>
+            <p>{user._id}</p>
+          </div>
+        );
       case "name":
         return (
           <User
             avatarProps={{ radius: "lg", src: user.avatar }}
             description={user.email}
-            name={cellValue}
+            name={
+              user.last_name
+                ? `${user.first_name} ${user.last_name}`
+                : user.first_name
+            }
           >
             {user.email}
           </User>
@@ -146,7 +159,7 @@ const Usuarios = ({ isLoggedIn }) => {
             </p>
           </div>
         );
-      case "status":
+      /* case "status":
         return (
           <Chip
             className="capitalize"
@@ -156,7 +169,7 @@ const Usuarios = ({ isLoggedIn }) => {
           >
             {cellValue}
           </Chip>
-        );
+        ); */
       case "actions":
         return (
           <div className="relative flex justify-end items-center gap-2">
