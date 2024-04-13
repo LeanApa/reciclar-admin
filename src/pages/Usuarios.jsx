@@ -226,8 +226,8 @@ const errorToast = (text)=>{
                 </Button>
               </DropdownTrigger>
               <DropdownMenu>
-                <DropdownItem>View</DropdownItem>
-                <DropdownItem>Edit</DropdownItem>
+               {/*  <DropdownItem>View</DropdownItem> */}
+                <DropdownItem href={`/usuarios/${user._id}`}>Edit</DropdownItem>
                 <DropdownItem onClick={() => handleDelete(user._id)}>
                   Delete
                 </DropdownItem>
