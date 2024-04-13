@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
 import {
   Table,
   TableHeader,
@@ -37,7 +38,7 @@ const columns = [
   { name: "EMAIL", uid: "email" },
   { name: "ACTIONS", uid: "actions" },
 ];
-const INITIAL_VISIBLE_COLUMNS = ["id", "name", "role", "age", "actions"];
+const INITIAL_VISIBLE_COLUMNS = ["id", "name", "role", "age","email", "actions"];
 const apiUrl = import.meta.env.VITE_API_URL;
 
 const Usuarios = ({ isLoggedIn }) => {
@@ -62,7 +63,7 @@ const Usuarios = ({ isLoggedIn }) => {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            "accessToken": `${isLoggedIn}`,
+            accessToken: `${isLoggedIn}`,
           },
         });
         const data = await response.json();
@@ -80,18 +81,45 @@ const Usuarios = ({ isLoggedIn }) => {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-          "accessToken": `${isLoggedIn}`,
+          accessToken: `${isLoggedIn}`,
         },
       });
       if (response.ok) {
         setUsers((prevUsers) => prevUsers.filter((user) => user._id !== id));
+        successToast("Usuario eliminado con éxito");
       } else {
         console.error("Error deleting user:", await response.text());
+        errorToast("Ups, ha ocurrido un error")
       }
     } catch (error) {
       console.error("Error deleting user:", error);
     }
   };
+
+  const successToast = (text) => {
+    toast.success(text, {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored"
+    });
+  };
+const errorToast = (text)=>{
+  toast.error(text, {
+    position: "bottom-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "colored",
+    });
+  }
 
   const hasSearchFilter = Boolean(filterValue);
 
@@ -382,43 +410,57 @@ const Usuarios = ({ isLoggedIn }) => {
   return !isLoggedIn ? (
     <ErrorAuth isLoggedIn={isLoggedIn} />
   ) : (
-    <Table
-      aria-label="Example table with custom cells, pagination and sorting"
-      isHeaderSticky
-      bottomContent={bottomContent}
-      bottomContentPlacement="outside"
-      classNames={{
-        wrapper: "max-h-[382px]",
-      }}
-      /*  selectedKeys={selectedKeys}
+    <div>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
+      <Table
+        aria-label="Example table with custom cells, pagination and sorting"
+        isHeaderSticky
+        bottomContent={bottomContent}
+        bottomContentPlacement="outside"
+        classNames={{
+          wrapper: "max-h-[382px]",
+        }}
+        /*  selectedKeys={selectedKeys}
       selectionMode="multiple" */
-      sortDescriptor={sortDescriptor}
-      topContent={topContent}
-      topContentPlacement="outside"
-      /* onSelectionChange={setSelectedKeys} */
-      onSortChange={setSortDescriptor}
-    >
-      <TableHeader columns={headerColumns}>
-        {(column) => (
-          <TableColumn
-            key={column.uid}
-            align={column.uid === "actions" ? "center" : "start"}
-            allowsSorting={column.sortable}
-          >
-            {column.name}
-          </TableColumn>
-        )}
-      </TableHeader>
-      <TableBody emptyContent={"No users found"} items={sortedItems}>
-        {(item) => (
-          <TableRow key={item._id}>
-            {(columnKey) => (
-              <TableCell>{renderCell(item, columnKey)}</TableCell>
-            )}
-          </TableRow>
-        )}
-      </TableBody>
-    </Table>
+        sortDescriptor={sortDescriptor}
+        topContent={topContent}
+        topContentPlacement="outside"
+        /* onSelectionChange={setSelectedKeys} */
+        onSortChange={setSortDescriptor}
+      >
+        <TableHeader columns={headerColumns}>
+          {(column) => (
+            <TableColumn
+              key={column.uid}
+              align={column.uid === "actions" ? "center" : "start"}
+              allowsSorting={column.sortable}
+            >
+              {column.name}
+            </TableColumn>
+          )}
+        </TableHeader>
+        <TableBody emptyContent={"No users found"} items={sortedItems}>
+          {(item) => (
+            <TableRow key={item._id}>
+              {(columnKey) => (
+                <TableCell>{renderCell(item, columnKey)}</TableCell>
+              )}
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
+    </div>
   );
 };
 
