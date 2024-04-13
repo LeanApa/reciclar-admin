@@ -52,7 +52,6 @@ const Usuarios = ({ isLoggedIn }) => {
     column: "age",
     direction: "ascending",
   });
-  const [deleted, setDeleted] = React.useState(false);
   const [page, setPage] = React.useState(1);
   const [users, setUsers] = React.useState([]);
 
@@ -73,7 +72,8 @@ const Usuarios = ({ isLoggedIn }) => {
       }
     };
     fetchData();
-  }, [deleted]);
+  }, []);
+
   const handleDelete = async (id) => {
     try {
       const response = await fetch(`${apiUrl}/users/${id}`, {
@@ -83,12 +83,16 @@ const Usuarios = ({ isLoggedIn }) => {
           "accessToken": `${isLoggedIn}`,
         },
       });
-    setDeleted(!deleted)
+      if (response.ok) {
+        setUsers((prevUsers) => prevUsers.filter((user) => user._id !== id));
+      } else {
+        console.error("Error deleting user:", await response.text());
+      }
     } catch (error) {
-      console.log(error);
+      console.error("Error deleting user:", error);
     }
   };
-  console.log("aca esta", users);
+
   const hasSearchFilter = Boolean(filterValue);
 
   const headerColumns = React.useMemo(() => {
