@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Table,
   TableHeader,
@@ -20,7 +20,7 @@ import { PlusIcon } from "../components/icons/PlusIcon";
 import { VerticalDotsIcon } from "../components/icons/VerticalDotsIcon";
 import { SearchIcon } from "../components/icons/SearchIcon";
 import { ChevronDownIcon } from "../components/icons/ChevronDownIcon";
-import { columns, users, statusOptions } from "./data";
+// import { columns, statusOptions } from "./data";
 import { capitalize } from "./utils";
 import ErrorAuth from "../components/ErrorAuth";
 
@@ -29,8 +29,16 @@ const statusColorMap = {
   paused: "danger",
   vacation: "warning",
 };
-
-const INITIAL_VISIBLE_COLUMNS = ["name", "role", "status", "actions"];
+const columns = [
+  {name: "ID", uid: "id", sortable: true},
+  {name: "NAME", uid: "name", sortable: true},
+  {name: "AGE", uid: "age", sortable: true},
+  {name: "ROLE", uid: "role", sortable: true},
+  {name: "EMAIL", uid: "email"},
+  {name: "ACTIONS", uid: "actions"},
+];
+const INITIAL_VISIBLE_COLUMNS = ["name", "role", "age", "actions"];
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const Usuarios = ({ isLoggedIn }) => {
   const [filterValue, setFilterValue] = React.useState("");
@@ -45,7 +53,27 @@ const Usuarios = ({ isLoggedIn }) => {
     direction: "ascending",
   });
   const [page, setPage] = React.useState(1);
+  const [users, setUsers] = React.useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`${apiUrl}/users`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "accessToken": `${isLoggedIn}`,
+          },
+        });
+        const data = await response.json();
+        setUsers(data); // Establecer el estado dentro del try
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
+    fetchData();
+  }, []);
+  console.log(users);
   const hasSearchFilter = Boolean(filterValue);
 
   const headerColumns = React.useMemo(() => {
@@ -196,7 +224,8 @@ const Usuarios = ({ isLoggedIn }) => {
             onValueChange={onSearchChange}
           />
           <div className="flex gap-3">
-            <Dropdown>
+            {/* FILTRO DE STATUS DROPDOWN */}
+            {/* <Dropdown>
               <DropdownTrigger className="hidden sm:flex">
                 <Button
                   endContent={<ChevronDownIcon className="text-small" />}
@@ -219,7 +248,7 @@ const Usuarios = ({ isLoggedIn }) => {
                   </DropdownItem>
                 ))}
               </DropdownMenu>
-            </Dropdown>
+            </Dropdown> */}
             <Dropdown>
               <DropdownTrigger className="hidden sm:flex">
                 <Button
@@ -269,7 +298,7 @@ const Usuarios = ({ isLoggedIn }) => {
     );
   }, [
     filterValue,
-    statusFilter,
+    //statusFilter,
     visibleColumns,
     onRowsPerPageChange,
     users.length,
@@ -281,9 +310,10 @@ const Usuarios = ({ isLoggedIn }) => {
     return (
       <div className="py-2 px-2 flex justify-between items-center">
         <span className="w-[30%] text-small text-default-400">
-          {selectedKeys === "all"
+          Users list
+          {/* {selectedKeys === "all"
             ? "All items selected"
-            : `${selectedKeys.size} of ${filteredItems.length} selected`}
+            : `${selectedKeys.size} of ${filteredItems.length} selected`} */}
         </span>
         <Pagination
           isCompact
@@ -327,12 +357,12 @@ const Usuarios = ({ isLoggedIn }) => {
       classNames={{
         wrapper: "max-h-[382px]",
       }}
-      selectedKeys={selectedKeys}
-      selectionMode="multiple"
+      /*  selectedKeys={selectedKeys}
+      selectionMode="multiple" */
       sortDescriptor={sortDescriptor}
       topContent={topContent}
       topContentPlacement="outside"
-      onSelectionChange={setSelectedKeys}
+      /* onSelectionChange={setSelectedKeys} */
       onSortChange={setSortDescriptor}
     >
       <TableHeader columns={headerColumns}>
@@ -348,7 +378,7 @@ const Usuarios = ({ isLoggedIn }) => {
       </TableHeader>
       <TableBody emptyContent={"No users found"} items={sortedItems}>
         {(item) => (
-          <TableRow key={item.id}>
+          <TableRow key={item._id}>
             {(columnKey) => (
               <TableCell>{renderCell(item, columnKey)}</TableCell>
             )}
