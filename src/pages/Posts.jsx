@@ -32,13 +32,12 @@ const statusColorMap = {
 };
 const columns = [
   { name: "ID", uid: "id", sortable: true },
-  { name: "NAME", uid: "name", sortable: true },
-  { name: "AGE", uid: "age", sortable: true },
-  { name: "ROLE", uid: "role", sortable: true },
-  { name: "EMAIL", uid: "email" },
+  { name: "TITLE", uid: "title", sortable: true },
+  { name: "CATEGORY", uid: "category", sortable: true },
+  { name: "IMAGE", uid: "imageUrl", sortable: true },
   { name: "ACTIONS", uid: "actions" },
 ];
-const INITIAL_VISIBLE_COLUMNS = ["id", "name", "role", "age","email", "actions"];
+const INITIAL_VISIBLE_COLUMNS = ["id", "title", "category", "imageUrl","actions"];
 const apiUrl = import.meta.env.VITE_API_URL;
 
 
@@ -55,12 +54,12 @@ const Posts = ({ isLoggedIn }) => {
     direction: "ascending",
   });
   const [page, setPage] = React.useState(1);
-  const [users, setUsers] = React.useState([]);
+  const [posts, setPosts] = React.useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${apiUrl}/users`, {
+        const response = await fetch(`${apiUrl}/posts`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -68,7 +67,7 @@ const Posts = ({ isLoggedIn }) => {
           },
         });
         const data = await response.json();
-        setUsers(data); // Establecer el estado dentro del try
+        setPosts(data); // Establecer el estado dentro del try
       } catch (error) {
         console.log(error);
       }
@@ -78,7 +77,7 @@ const Posts = ({ isLoggedIn }) => {
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`${apiUrl}/users/${id}`, {
+      const response = await fetch(`${apiUrl}/posts/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -86,7 +85,7 @@ const Posts = ({ isLoggedIn }) => {
         },
       });
       if (response.ok) {
-        setUsers((prevUsers) => prevUsers.filter((user) => user._id !== id));
+        setPosts((prevPosts) => prevPosts.filter((post) => post._id !== id));
         successToast("Usuario eliminado con éxito");
       } else {
         console.error("Error deleting user:", await response.text());
@@ -133,26 +132,25 @@ const errorToast = (text)=>{
   }, [visibleColumns]);
 
   const filteredItems = React.useMemo(() => {
-    let filteredUsers = [...users];
+    let filteredPosts = [...posts];
 
     if (hasSearchFilter) {
-      filteredUsers = filteredUsers.filter(
-        (user) =>
-          user.first_name?.toLowerCase().includes(filterValue.toLowerCase()) ||
-          user.last_name?.toLowerCase().includes(filterValue.toLowerCase())
+      filteredPosts = filteredPosts.filter(
+        (post) =>
+          post.title?.toLowerCase().includes(filterValue.toLowerCase())
       );
     }
     if (
       statusFilter !== "all" &&
       Array.from(statusFilter).length !== statusOptions.length
     ) {
-      filteredUsers = filteredUsers.filter((user) =>
-        Array.from(statusFilter).includes(user.status)
+      filteredPosts = filteredPosts.filter((post) =>
+        Array.from(statusFilter).includes(post.category)
       );
     }
 
-    return filteredUsers;
-  }, [users, filterValue, statusFilter]);
+    return filteredPosts;
+  }, [posts, filterValue, statusFilter]);
 
   const pages = Math.ceil(filteredItems.length / rowsPerPage);
 
@@ -342,7 +340,7 @@ const errorToast = (text)=>{
         </div>
         <div className="flex justify-between items-center">
           <span className="text-default-400 text-small">
-            Total {users.length} users
+            Total {Posts.length} Posts
           </span>
           <label className="flex items-center text-default-400 text-small">
             Rows per page:
@@ -363,7 +361,7 @@ const errorToast = (text)=>{
     //statusFilter,
     visibleColumns,
     onRowsPerPageChange,
-    users.length,
+    posts.length,
     onSearchChange,
     hasSearchFilter,
   ]);
@@ -372,7 +370,7 @@ const errorToast = (text)=>{
     return (
       <div className="py-2 px-2 flex justify-between items-center">
         <span className="w-[30%] text-small text-default-400">
-          Users list
+        Posts list
           {/* {selectedKeys === "all"
             ? "All items selected"
             : `${selectedKeys.size} of ${filteredItems.length} selected`} */}
@@ -451,7 +449,7 @@ const errorToast = (text)=>{
             </TableColumn>
           )}
         </TableHeader>
-        <TableBody emptyContent={"No users found"} items={sortedItems}>
+        <TableBody emptyContent={"No posts found"} items={sortedItems}>
           {(item) => (
             <TableRow key={item._id}>
               {(columnKey) => (
