@@ -88,11 +88,11 @@ const Posts = ({ isLoggedIn }) => {
         setPosts((prevPosts) => prevPosts.filter((post) => post._id !== id));
         successToast("Usuario eliminado con éxito");
       } else {
-        console.error("Error deleting user:", await response.text());
+        console.error("Error deleting post:", await response.text());
         errorToast("Ups, ha ocurrido un error")
       }
     } catch (error) {
-      console.error("Error deleting user:", error);
+      console.error("Error deleting post:", error);
     }
   };
 
@@ -171,39 +171,37 @@ const errorToast = (text)=>{
     });
   }, [sortDescriptor, items]);
 
-  const renderCell = React.useCallback((user, columnKey) => {
-    const cellValue = user[columnKey];
+  const renderCell = React.useCallback((post, columnKey) => {
+    const cellValue = post[columnKey];
 
     switch (columnKey) {
       case "id":
         return (
           <div>
-            <p>{user._id}</p>
+            <p>{post._id}</p>
           </div>
         );
-      case "name":
+      case "title":
         return (
           <User
-            avatarProps={{ radius: "lg", src: user.avatar }}
-            description={user.email}
+            avatarProps={{ radius: "lg", src: post.avatar }}
+            description={post.level}
             name={
-              user.last_name
-                ? `${user.first_name} ${user.last_name}`
-                : user.first_name
+              post.title
             }
           >
-            {user.email}
+            {post.category}
           </User>
         );
-      case "role":
+     /*  case "role":
         return (
           <div className="flex flex-col">
             <p className="text-bold text-small capitalize">{cellValue}</p>
             <p className="text-bold text-tiny capitalize text-default-400">
-              {user.team}
+              {post.category}
             </p>
           </div>
-        );
+        ); */
       /* case "status":
         return (
           <Chip
@@ -226,8 +224,8 @@ const errorToast = (text)=>{
               </DropdownTrigger>
               <DropdownMenu>
                {/*  <DropdownItem>View</DropdownItem> */}
-                <DropdownItem href={`/usuarios/${user._id}`}>Edit</DropdownItem>
-                <DropdownItem onClick={() => handleDelete(user._id)}>
+                <DropdownItem href={`/posts/${post._id}`}>Edit</DropdownItem>
+                <DropdownItem onClick={() => handleDelete(post._id)}>
                   Delete
                 </DropdownItem>
               </DropdownMenu>

@@ -8,6 +8,7 @@ import Posts from "./pages/Posts";
 import Reciclables from "./pages/Reciclables";
 import LogIn from "./pages/LogIn";
 import User from './pages/User'
+import Post from './pages/Post'
 
 function App() {
   const navigate = useNavigate();
@@ -23,6 +24,7 @@ function App() {
           <Route path="/usuarios/:id" element={<User isLoggedIn={isLoggedIn} />} />
           <Route path="/empresas" element={<Empresas isLoggedIn={isLoggedIn} />} />
           <Route path="/posts" element={<Posts isLoggedIn={isLoggedIn}/>} />
+          <Route path="/posts/:id" element={<Post isLoggedIn={isLoggedIn}/>} />
           <Route path="/reciclables" element={<Reciclables isLoggedIn={isLoggedIn} />} />
         </Routes>
       </main>
