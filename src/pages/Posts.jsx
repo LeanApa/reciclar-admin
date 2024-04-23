@@ -15,6 +15,7 @@ import {
   DropdownItem,
   Chip,
   User,
+  Link,
   Pagination,
 } from "@nextui-org/react";
 import { PlusIcon } from "../components/icons/PlusIcon";
@@ -331,9 +332,9 @@ const errorToast = (text)=>{
                 ))}
               </DropdownMenu>
             </Dropdown>
-           {/*  <Button color="primary" endContent={<PlusIcon />}>
-              Add New
-            </Button> */}
+            <Button color="primary" endContent={<PlusIcon />} as={Link} href="/posts/new">
+              Agregar post
+            </Button>
           </div>
         </div>
         <div className="flex justify-between items-center">

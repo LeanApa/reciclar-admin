@@ -24,13 +24,28 @@ const Post = ({ isLoggedIn }) => {
     fetchData();
   }, []);
 
-  return !isLoggedIn ? (
+  if (!isLoggedIn) {
+    return <ErrorAuth isLoggedIn={isLoggedIn} />;
+  } else if (!id) {
+    return (
+      <div>
+        <PostItem isLoggedIn={isLoggedIn} />
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <PostItem post={post} isLoggedIn={isLoggedIn} />
+      </div>
+    );
+  }
+  /*  return !isLoggedIn ? (
     <ErrorAuth isLoggedIn={isLoggedIn} />
   ) : (
     <div>
       <PostItem post={post} isLoggedIn={isLoggedIn} />
     </div>
-  );
+  ); */
 };
 
 export default Post;

@@ -25,6 +25,7 @@ function App() {
           <Route path="/empresas" element={<Empresas isLoggedIn={isLoggedIn} />} />
           <Route path="/posts" element={<Posts isLoggedIn={isLoggedIn}/>} />
           <Route path="/posts/:id" element={<Post isLoggedIn={isLoggedIn}/>} />
+          <Route path="/posts/new" element={<Post isLoggedIn={isLoggedIn}/>} />
           <Route path="/reciclables" element={<Reciclables isLoggedIn={isLoggedIn} />} />
         </Routes>
       </main>
