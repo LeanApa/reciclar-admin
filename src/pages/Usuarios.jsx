@@ -278,7 +278,7 @@ const errorToast = (text)=>{
           <Input
             isClearable
             className="w-full sm:max-w-[44%]"
-            placeholder="Search by name..."
+            placeholder="Buscar por nombre..."
             startContent={<SearchIcon />}
             value={filterValue}
             onClear={() => onClear()}
@@ -316,7 +316,7 @@ const errorToast = (text)=>{
                   endContent={<ChevronDownIcon className="text-small" />}
                   variant="flat"
                 >
-                  Columns
+                  Columnas
                 </Button>
               </DropdownTrigger>
               <DropdownMenu
@@ -341,10 +341,10 @@ const errorToast = (text)=>{
         </div>
         <div className="flex justify-between items-center">
           <span className="text-default-400 text-small">
-            Total {users.length} users
+            Total {users.length} usuarios
           </span>
           <label className="flex items-center text-default-400 text-small">
-            Rows per page:
+            Filas por página:
             <select
               className="bg-transparent outline-none text-default-400 text-small"
               onChange={onRowsPerPageChange}
@@ -371,7 +371,7 @@ const errorToast = (text)=>{
     return (
       <div className="py-2 px-2 flex justify-between items-center">
         <span className="w-[30%] text-small text-default-400">
-          Users list
+          Listado de usuarios
           {/* {selectedKeys === "all"
             ? "All items selected"
             : `${selectedKeys.size} of ${filteredItems.length} selected`} */}
@@ -392,7 +392,7 @@ const errorToast = (text)=>{
             variant="flat"
             onPress={onPreviousPage}
           >
-            Previous
+            Anterior
           </Button>
           <Button
             isDisabled={pages === 1}
@@ -400,7 +400,7 @@ const errorToast = (text)=>{
             variant="flat"
             onPress={onNextPage}
           >
-            Next
+            Siguiente
           </Button>
         </div>
       </div>
