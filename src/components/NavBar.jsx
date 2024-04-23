@@ -12,10 +12,11 @@ import {
 } from "@nextui-org/react";
 import { ReciclarLogo } from "./icons/ReciclarLogo.jsx";
 import LogOutButton from "./LogOutButton.jsx";
-import BusinessIcon from '@mui/icons-material/Business';
-import PeopleIcon from '@mui/icons-material/People';
-import ArticleIcon from '@mui/icons-material/Article';
-import RecyclingIcon from '@mui/icons-material/Recycling';
+import BusinessIcon from "@mui/icons-material/Business";
+import PeopleIcon from "@mui/icons-material/People";
+import ArticleIcon from "@mui/icons-material/Article";
+import RecyclingIcon from "@mui/icons-material/Recycling";
+import LoginIcon from "@mui/icons-material/Login";
 
 export default function NavBar({ isLoggedIn }) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -24,12 +25,15 @@ export default function NavBar({ isLoggedIn }) {
     { name: "Empresas", icon: <BusinessIcon /> },
     { name: "Usuarios", icon: <PeopleIcon /> },
     { name: "Posts", icon: <ArticleIcon /> },
-    { name: "Reciclables", icon: <RecyclingIcon /> }
+    { name: "Reciclables", icon: <RecyclingIcon /> },
   ];
-
+  
+  const handleMenuItemClick = () => {
+    setIsMenuOpen(false); // Cerrar el menú al hacer clic en un elemento del menú
+  };
 
   return (
-    <Navbar isBordered onMenuOpenChange={setIsMenuOpen} maxWidth="full">
+    <Navbar isBordered onMenuOpenChange={setIsMenuOpen} isMenuOpen={isMenuOpen} maxWidth="full">
       <NavbarContent>
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
@@ -49,7 +53,10 @@ export default function NavBar({ isLoggedIn }) {
       <NavbarContent justify="end">
         {!isLoggedIn ? (
           <NavbarItem className="lg:flex">
-            <Link href="/login">Login</Link>
+            <Link href="/login">
+              <LoginIcon className="mr-1" />
+              Iniciar sesión
+            </Link>
           </NavbarItem>
         ) : (
           <LogOutButton />
@@ -73,9 +80,8 @@ export default function NavBar({ isLoggedIn }) {
               className="w-full"
               href={`/${item.name.toLowerCase()}`}
               size="lg"
-            >
+              onClick={handleMenuItemClick} >
               {item.icon} {item.name}
-
             </Link>
           </NavbarMenuItem>
         ))}
