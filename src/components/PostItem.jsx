@@ -9,7 +9,9 @@ import {
   Input,
   Button,
   Avatar,
-  Textarea
+  Textarea,
+  Select,
+  SelectItem,
 } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
 
@@ -24,14 +26,19 @@ const PostItem = ({ post, isLoggedIn }) => {
   const [content, setContent] = useState("");
 
   const navigate = useNavigate();
+  const levels = [
+    { description: "PRINCIPIANTE" },
+    { description: "INTERMEDIO" },
+    { description: "AVANZADO" },
+  ];
 
   const handleTitleChange = (e) => setTitle(e.target.value);
   const handleSubTitleChange = (e) => setSubTitle(e.target.value);
   const handleCategoryChange = (e) => setCategory(e.target.value);
   const handleImageUrlChange = (e) => setImageUrl(e.target.value);
-  const handleLevelChange = (e) => setLevel(e.target.value);
+  const handleLevelChange = (e) => setLevel([e.currentKey]);
   const handleContentChange = (e) => setContent(e.target.value);
-  
+
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
@@ -55,8 +62,6 @@ const PostItem = ({ post, isLoggedIn }) => {
     } catch (error) {
       console.error(error);
     }
-
-    // Luego puedes redirigir al usuario a la página principal, por ejemplo
   };
   return (
     <form onSubmit={handleSubmit}>
@@ -103,12 +108,21 @@ const PostItem = ({ post, isLoggedIn }) => {
             />
           </div>
           <div className="flex w-full flex-wrap md:flex-nowrap gap-4 mt-4">
-            <Input
-              onChange={handleLevelChange}
-              type="text"
+            <Select
+              items={levels}
               label="Nivel"
               placeholder={post.level}
-            />
+              selectedKeys={level}
+              onSelectionChange={handleLevelChange}
+             /*  selectedKeys={[level]} */
+              /* onChange={handleLevelChange} */
+            >
+              {levels.map((level) => (
+                <SelectItem key={level.description}>
+                  {level.description}
+                </SelectItem>
+              ))}
+            </Select>
           </div>
           <div className="flex w-full flex-wrap md:flex-nowrap gap-4 mt-4">
             <Textarea
@@ -131,7 +145,7 @@ const PostItem = ({ post, isLoggedIn }) => {
               color="danger"
               variant="light"
               as={Link}
-              href="/Usuarios"
+              href="/posts"
             >
               Cancelar
             </Button>
