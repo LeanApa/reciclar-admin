@@ -67,7 +67,7 @@ const PostItem = ({ post, isLoggedIn }) => {
     <form onSubmit={handleSubmit}>
       <Card className="max-w-[1000px] w-[600px]">
         <CardHeader className="flex gap-3">
-          <Avatar name={post.first_name} />
+          <Avatar name={post.title} />
           <div className="flex flex-col">
             <p className="text-md">{post.title}</p>
             <p className="text-small text-default-500">{post.subtitle}</p>
