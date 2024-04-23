@@ -24,6 +24,8 @@ import { ChevronDownIcon } from "../components/icons/ChevronDownIcon";
 // import { columns, statusOptions } from "./data";
 import { capitalize } from "./utils";
 import ErrorAuth from "../components/ErrorAuth";
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const statusColorMap = {
   active: "success",
@@ -227,9 +229,9 @@ const errorToast = (text)=>{
               </DropdownTrigger>
               <DropdownMenu>
                {/*  <DropdownItem>View</DropdownItem> */}
-                <DropdownItem href={`/usuarios/${user._id}`}>Edit</DropdownItem>
+                <DropdownItem href={`/usuarios/${user._id}`}><EditIcon className="p-1 text-yellow-600"/>Editar</DropdownItem>
                 <DropdownItem onClick={() => handleDelete(user._id)}>
-                  Delete
+                <DeleteIcon className="p-1 text-red-600"/>Eliminar
                 </DropdownItem>
               </DropdownMenu>
             </Dropdown>

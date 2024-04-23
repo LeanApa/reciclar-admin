@@ -14,6 +14,7 @@ import {
   SelectItem,
 } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -85,11 +86,20 @@ const PostItem = ({ post, isLoggedIn }) => {
     <form onSubmit={handleSubmit}>
       <Card className="max-w-[1000px] w-[600px]">
         <CardHeader className="flex gap-3">
-          <Avatar name={post?.title} />
-          <div className="flex flex-col">
-            <p className="text-md">{post?.title}</p>
-            <p className="text-small text-default-500">{post?.subtitle}</p>
-          </div>
+          {!post ? (
+            <div className="flex p-1">
+              <AddCircleIcon className="text-blue-600" />
+              <p className="text-small p-1">Complete los siguietes campos: </p>
+            </div>
+          ) : (
+            <>
+              <Avatar name={post?.title} />
+              <div className="flex flex-col">
+                <p className="text-md">{post?.title}</p>
+                <p className="text-small text-default-500">{post?.subtitle}</p>
+              </div>
+            </>
+          )}
         </CardHeader>
         <Divider />
         <CardBody>
