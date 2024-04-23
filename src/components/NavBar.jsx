@@ -12,11 +12,21 @@ import {
 } from "@nextui-org/react";
 import { ReciclarLogo } from "./icons/ReciclarLogo.jsx";
 import LogOutButton from "./LogOutButton.jsx";
+import BusinessIcon from '@mui/icons-material/Business';
+import PeopleIcon from '@mui/icons-material/People';
+import ArticleIcon from '@mui/icons-material/Article';
+import RecyclingIcon from '@mui/icons-material/Recycling';
 
 export default function NavBar({ isLoggedIn }) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
-  const menuItems = ["Empresas", "Usuarios", "Posts", "Reciclables"];
+  const menuItems = [
+    { name: "Empresas", icon: <BusinessIcon /> },
+    { name: "Usuarios", icon: <PeopleIcon /> },
+    { name: "Posts", icon: <ArticleIcon /> },
+    { name: "Reciclables", icon: <RecyclingIcon /> }
+  ];
+
 
   return (
     <Navbar isBordered onMenuOpenChange={setIsMenuOpen} maxWidth="full">
@@ -56,15 +66,16 @@ export default function NavBar({ isLoggedIn }) {
           <NavbarMenuItem key={`${item}-${index}`}>
             <Link
               color={
-                location.pathname === `/${item.toLowerCase()}`
+                location.pathname === `/${item.name.toLowerCase()}`
                   ? "primary"
                   : "foreground"
               }
               className="w-full"
-              href={`/${item.toLowerCase()}`}
+              href={`/${item.name.toLowerCase()}`}
               size="lg"
             >
-              {item}
+              {item.icon} {item.name}
+
             </Link>
           </NavbarMenuItem>
         ))}
