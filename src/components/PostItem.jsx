@@ -93,7 +93,7 @@ const PostItem = ({ post, isLoggedIn }) => {
             </div>
           ) : (
             <>
-              <Avatar name={post?.title} />
+              <Avatar name={post?.title} src= {post.imageUrl} />
               <div className="flex flex-col">
                 <p className="text-md">{post?.title}</p>
                 <p className="text-small text-default-500">{post?.subtitle}</p>

@@ -10,8 +10,6 @@ import {
   Button,
   Avatar,
   Textarea,
-  Select,
-  SelectItem,
 } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
@@ -79,7 +77,7 @@ const ReciclableItem = ({ reciclable, isLoggedIn }) => {
             </div>
           ) : (
             <>
-              <Avatar name={reciclable?.title} />
+              <Avatar name={reciclable?.title} src={reciclable?.imageUrl}/>
               <div className="flex flex-col">
                 <p className="text-md">{reciclable?.title}</p>
                 <p className="text-small text-default-500">

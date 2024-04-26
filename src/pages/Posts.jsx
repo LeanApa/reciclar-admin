@@ -187,7 +187,7 @@ const errorToast = (text)=>{
       case "title":
         return (
           <User
-            avatarProps={{ radius: "lg", src: post.avatar }}
+            avatarProps={{ radius: "lg", src: post.imageUrl }}
             description={post.level}
             name={
               post.title
