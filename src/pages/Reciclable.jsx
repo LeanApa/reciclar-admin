@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ErrorAuth from "../components/ErrorAuth";
-import PostItem from "../components/PostItem";
+import ReciclableItem from "../components/ReciclableItem";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-const Post = ({ isLoggedIn }) => {
+const Reciclable = ({ isLoggedIn }) => {
   const { id } = useParams();
-  const [post, setPost] = useState({});
+  const [reciclable, setReciclable] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(`${API_URL}/posts/${id}`, {
+      const response = await fetch(`${API_URL}/reciclables/${id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -19,7 +19,7 @@ const Post = ({ isLoggedIn }) => {
         },
       });
       const data = await response.json();
-      setPost(data);
+      setReciclable(data);
     };
     fetchData();
   }, []);
@@ -29,13 +29,13 @@ const Post = ({ isLoggedIn }) => {
   } else if (!id) {
     return (
       <div>
-        <PostItem isLoggedIn={isLoggedIn} />
+        <ReciclableItem isLoggedIn={isLoggedIn} />
       </div>
     );
   } else {
     return (
       <div>
-        <PostItem post={post} isLoggedIn={isLoggedIn} />
+        <ReciclableItem reciclable={reciclable} isLoggedIn={isLoggedIn} />
       </div>
     );
   }
@@ -43,9 +43,9 @@ const Post = ({ isLoggedIn }) => {
     <ErrorAuth isLoggedIn={isLoggedIn} />
   ) : (
     <div>
-      <PostItem post={post} isLoggedIn={isLoggedIn} />
+      <reciclableItem reciclable={reciclable} isLoggedIn={isLoggedIn} />
     </div>
   ); */
 };
 
-export default Post;
+export default Reciclable;

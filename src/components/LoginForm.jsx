@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { EyeFilledIcon } from "./icons/EyeFilledIcon";
 import { EyeSlashFilledIcon } from "./icons/EyeSlashFilledIcon";
 import { ReciclarLogo } from "./icons/ReciclarLogo";
-const apiUrl = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL;
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -29,7 +29,7 @@ const LoginForm = () => {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      const response = await fetch(`${apiUrl}/sessions/loginadmin`, {
+      const response = await fetch(`${API_URL}/sessions/loginadmin`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

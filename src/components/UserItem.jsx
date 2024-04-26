@@ -14,7 +14,7 @@ import {
 import { useNavigate } from "react-router-dom";
 
 
-const apiUrl = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL;
 
 
 const UserItem = ({ user, isLoggedIn }) => {
@@ -37,7 +37,7 @@ const UserItem = ({ user, isLoggedIn }) => {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      const response = await fetch(`${apiUrl}/users/${user._id}`, {
+      const response = await fetch(`${API_URL}/users/${user._id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

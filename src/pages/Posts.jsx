@@ -41,7 +41,7 @@ const columns = [
   { name: "ACTIONS", uid: "actions" },
 ];
 const INITIAL_VISIBLE_COLUMNS = ["id", "title", "category", "imageUrl","actions"];
-const apiUrl = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL;
 
 
 const Posts = ({ isLoggedIn }) => {
@@ -62,7 +62,7 @@ const Posts = ({ isLoggedIn }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${apiUrl}/posts`, {
+        const response = await fetch(`${API_URL}/posts`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -80,7 +80,7 @@ const Posts = ({ isLoggedIn }) => {
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`${apiUrl}/posts/${id}`, {
+      const response = await fetch(`${API_URL}/posts/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -89,7 +89,7 @@ const Posts = ({ isLoggedIn }) => {
       });
       if (response.ok) {
         setPosts((prevPosts) => prevPosts.filter((post) => post._id !== id));
-        successToast("Usuario eliminado con éxito");
+        successToast("Post eliminado con éxito");
       } else {
         console.error("Error deleting post:", await response.text());
         errorToast("Ups, ha ocurrido un error")

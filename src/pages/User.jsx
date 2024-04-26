@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import ErrorAuth from "../components/ErrorAuth";
 import UserItem from "../components/UserItem";
 
-const apiUrl = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL;
 
 const User = ({ isLoggedIn }) => {
   const { id } = useParams();
@@ -11,7 +11,7 @@ const User = ({ isLoggedIn }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(`${apiUrl}/users/${id}`, {
+      const response = await fetch(`${API_URL}/users/${id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

@@ -18,7 +18,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-const PostItem = ({ post, isLoggedIn }) => {
+const ReciclableItem = ({ reciclable, isLoggedIn }) => {
   const [title, setTitle] = useState("");
   const [subtitle, setSubTitle] = useState("");
   const [category, setCategory] = useState("");
@@ -44,8 +44,8 @@ const PostItem = ({ post, isLoggedIn }) => {
     try {
       e.preventDefault();
 
-      if (post) {
-        const response = await fetch(`${API_URL}/posts/${post._id}`, {
+      if (reciclable) {
+        const response = await fetch(`${API_URL}/reciclables/${reciclable._id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -61,7 +61,7 @@ const PostItem = ({ post, isLoggedIn }) => {
           }),
         });
       } else {
-        const response = await fetch(`${API_URL}/posts/`, {
+        const response = await fetch(`${API_URL}/reciclables/`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -77,7 +77,7 @@ const PostItem = ({ post, isLoggedIn }) => {
           }),
         });
       }
-      navigate("/posts");
+      navigate("/reciclables");
     } catch (error) {
       console.error(error);
     }
@@ -86,17 +86,17 @@ const PostItem = ({ post, isLoggedIn }) => {
     <form onSubmit={handleSubmit}>
       <Card className="max-w-[1000px] w-[600px]">
         <CardHeader className="flex gap-3">
-          {!post ? (
+          {!reciclable ? (
             <div className="flex p-1">
               <AddCircleIcon className="text-blue-600" />
               <p className="text-small p-1">Complete los siguietes campos: </p>
             </div>
           ) : (
             <>
-              <Avatar name={post?.title} />
+              <Avatar name={reciclable?.title} />
               <div className="flex flex-col">
-                <p className="text-md">{post?.title}</p>
-                <p className="text-small text-default-500">{post?.subtitle}</p>
+                <p className="text-md">{reciclable?.title}</p>
+                <p className="text-small text-default-500">{reciclable?.subtitle}</p>
               </div>
             </>
           )}
@@ -108,7 +108,7 @@ const PostItem = ({ post, isLoggedIn }) => {
               onChange={handleTitleChange}
               type="text"
               label="Título"
-              placeholder={post?.title || "Ingrese un título"}
+              placeholder={reciclable?.title || "Ingrese un título"}
             />
           </div>
           <div className="flex w-full flex-wrap md:flex-nowrap gap-4 mt-4">
@@ -116,7 +116,7 @@ const PostItem = ({ post, isLoggedIn }) => {
               onChange={handleSubTitleChange}
               type="text"
               label="Sub título"
-              placeholder={post?.subtitle || "Ingrese un subtítulo"}
+              placeholder={reciclable?.subtitle || "Ingrese un subtítulo"}
             />
           </div>
           <div className="flex w-full flex-wrap md:flex-nowrap gap-4 mt-4">
@@ -124,7 +124,7 @@ const PostItem = ({ post, isLoggedIn }) => {
               onChange={handleCategoryChange}
               type="text"
               label="Categoría"
-              placeholder={post?.category || "Ingrese una categoría"}
+              placeholder={reciclable?.category || "Ingrese una categoría"}
             />
           </div>
           <div className="flex w-full flex-wrap md:flex-nowrap gap-4 mt-4">
@@ -132,14 +132,14 @@ const PostItem = ({ post, isLoggedIn }) => {
               onChange={handleImageUrlChange}
               type="text"
               label="URL de imagen"
-              placeholder={post?.imageUrl || "Ingrese una URL"}
+              placeholder={reciclable?.imageUrl || "Ingrese una URL"}
             />
           </div>
           <div className="flex w-full flex-wrap md:flex-nowrap gap-4 mt-4">
             <Select
               items={levels}
               label="Nivel"
-              placeholder={post?.level || "Elija el nivel"}
+              placeholder={reciclable?.level || "Elija el nivel"}
               selectedKeys={level}
               onSelectionChange={handleLevelChange}
             >
@@ -154,14 +154,14 @@ const PostItem = ({ post, isLoggedIn }) => {
             <Textarea
               onChange={handleContentChange}
               label="Contenido"
-              placeholder={post?.content || "Escriba el contenido"}
+              placeholder={reciclable?.content || "Escriba el contenido"}
             />
           </div>
         </CardBody>
         <Divider />
         <CardFooter>
           <div className="flex flex-wrap gap-4 items-center p-2">
-            {post ? (
+            {reciclable ? (
               <Button type="submit" size="lg" color="primary" variant="light">
                 Modificar
               </Button>
@@ -177,7 +177,7 @@ const PostItem = ({ post, isLoggedIn }) => {
               color="danger"
               variant="light"
               as={Link}
-              href="/posts"
+              href="/reciclables"
             >
               Cancelar
             </Button>
@@ -188,4 +188,4 @@ const PostItem = ({ post, isLoggedIn }) => {
   );
 };
 
-export default PostItem;
+export default ReciclableItem;

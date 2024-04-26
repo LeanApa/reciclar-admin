@@ -41,7 +41,7 @@ const columns = [
   { name: "ACTIONS", uid: "actions" },
 ];
 const INITIAL_VISIBLE_COLUMNS = ["id", "name", "role", "age","email", "actions"];
-const apiUrl = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL;
 
 const Usuarios = ({ isLoggedIn }) => {
   const [filterValue, setFilterValue] = React.useState("");
@@ -61,7 +61,7 @@ const Usuarios = ({ isLoggedIn }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${apiUrl}/users`, {
+        const response = await fetch(`${API_URL}/users`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -79,7 +79,7 @@ const Usuarios = ({ isLoggedIn }) => {
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`${apiUrl}/users/${id}`, {
+      const response = await fetch(`${API_URL}/users/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
