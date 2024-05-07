@@ -24,13 +24,12 @@ import { ChevronDownIcon } from "../components/icons/ChevronDownIcon";
 // import { columns, statusOptions } from "./data";
 import { capitalize } from "./utils";
 import ErrorAuth from "../components/ErrorAuth";
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const statusColorMap = {
-  active: "success",
-  paused: "danger",
-  vacation: "warning",
+  true: "success", 
+  false: "warning",
 };
 const columns = [
   { name: "ID", uid: "id", sortable: true },
@@ -40,7 +39,14 @@ const columns = [
   { name: "WEBSITE", uid: "website" },
   { name: "ACTIONS", uid: "actions" },
 ];
-const INITIAL_VISIBLE_COLUMNS = ["id", "name", "cuil", "approved","website", "actions"];
+const INITIAL_VISIBLE_COLUMNS = [
+  "id",
+  "name",
+  "cuil",
+  "approved",
+  "website",
+  "actions",
+];
 const API_URL = import.meta.env.VITE_API_URL;
 
 const Empresas = ({ isLoggedIn }) => {
@@ -65,7 +71,7 @@ const Empresas = ({ isLoggedIn }) => {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            "accessToken": `${isLoggedIn}`,
+            accessToken: `${isLoggedIn}`,
           },
         });
         const data = await response.json();
@@ -83,18 +89,20 @@ const Empresas = ({ isLoggedIn }) => {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-          "accessToken": `${isLoggedIn}`,
+          accessToken: `${isLoggedIn}`,
         },
       });
       if (response.ok) {
-        setCompanies((prevCompanies) => prevCompanies.filter((user) => user._id !== id));
+        setCompanies((prevCompanies) =>
+          prevCompanies.filter((company) => company._id !== id)
+        );
         successToast("Usuario eliminado con éxito");
       } else {
-        console.error("Error deleting user:", await response.text());
-        errorToast("Ups, ha ocurrido un error")
+        console.error("Error deleting company:", await response.text());
+        errorToast("Ups, ha ocurrido un error");
       }
     } catch (error) {
-      console.error("Error deleting user:", error);
+      console.error("Error deleting company:", error);
     }
   };
 
@@ -107,21 +115,21 @@ const Empresas = ({ isLoggedIn }) => {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: "colored"
+      theme: "colored",
     });
   };
-const errorToast = (text)=>{
-  toast.error(text, {
-    position: "bottom-right",
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: "colored",
+  const errorToast = (text) => {
+    toast.error(text, {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
     });
-  }
+  };
 
   const hasSearchFilter = Boolean(filterValue);
 
@@ -137,18 +145,16 @@ const errorToast = (text)=>{
     let filteredCompanies = [...companies];
 
     if (hasSearchFilter) {
-      filteredCompanies = filteredCompanies.filter(
-        (user) =>
-          user.first_name?.toLowerCase().includes(filterValue.toLowerCase()) ||
-          user.last_name?.toLowerCase().includes(filterValue.toLowerCase())
+      filteredCompanies = filteredCompanies.filter((company) =>
+        company.name?.toLowerCase().includes(filterValue.toLowerCase())
       );
     }
     if (
       statusFilter !== "all" &&
       Array.from(statusFilter).length !== statusOptions.length
     ) {
-      filteredCompanies = filteredCompanies.filter((user) =>
-        Array.from(statusFilter).includes(user.status)
+      filteredCompanies = filteredCompanies.filter((company) =>
+        Array.from(statusFilter).includes(company.status)
       );
     }
 
@@ -174,28 +180,24 @@ const errorToast = (text)=>{
     });
   }, [sortDescriptor, items]);
 
-  const renderCell = React.useCallback((user, columnKey) => {
-    const cellValue = user[columnKey];
+  const renderCell = React.useCallback((company, columnKey) => {
+    const cellValue = company[columnKey];
 
     switch (columnKey) {
       case "id":
         return (
           <div>
-            <p>{user._id}</p>
+            <p>{company._id}</p>
           </div>
         );
       case "name":
         return (
           <User
-            avatarProps={{ radius: "lg", src: user.avatar }}
-            description={user.email}
-            name={
-              user.last_name
-                ? `${user.first_name} ${user.last_name}`
-                : user.first_name
-            }
+            avatarProps={{ radius: "lg", src: company.avatar }}
+            description={company.email}
+            name={company.name}
           >
-            {user.email}
+            {company.email}
           </User>
         );
       case "role":
@@ -203,21 +205,21 @@ const errorToast = (text)=>{
           <div className="flex flex-col">
             <p className="text-bold text-small capitalize">{cellValue}</p>
             <p className="text-bold text-tiny capitalize text-default-400">
-              {user.team}
+              {company.team}
             </p>
           </div>
         );
-      /* case "status":
+      case "approved":
         return (
           <Chip
             className="capitalize"
-            color={statusColorMap[user.status]}
+            color={statusColorMap[company.isApproved]}
             size="sm"
             variant="flat"
           >
-            {cellValue}
+            { company.isApproved ? "active" : "pending"}
           </Chip>
-        ); */
+        );
       case "actions":
         return (
           <div className="relative flex justify-end items-center gap-2">
@@ -228,10 +230,14 @@ const errorToast = (text)=>{
                 </Button>
               </DropdownTrigger>
               <DropdownMenu>
-               {/*  <DropdownItem>View</DropdownItem> */}
-                <DropdownItem href={`/company/${user._id}`}><EditIcon className="p-1 text-yellow-600"/>Editar</DropdownItem>
-                <DropdownItem onClick={() => handleDelete(user._id)}>
-                <DeleteIcon className="p-1 text-red-600"/>Eliminar
+                {/*  <DropdownItem>View</DropdownItem> */}
+                <DropdownItem href={`/company/${company._id}`}>
+                  <EditIcon className="p-1 text-yellow-600" />
+                  Editar
+                </DropdownItem>
+                <DropdownItem onClick={() => handleDelete(company._id)}>
+                  <DeleteIcon className="p-1 text-red-600" />
+                  Eliminar
                 </DropdownItem>
               </DropdownMenu>
             </Dropdown>
@@ -336,7 +342,7 @@ const errorToast = (text)=>{
                 ))}
               </DropdownMenu>
             </Dropdown>
-           {/*  <Button color="primary" endContent={<PlusIcon />}>
+            {/*  <Button color="primary" endContent={<PlusIcon />}>
               Add New
             </Button> */}
           </div>
