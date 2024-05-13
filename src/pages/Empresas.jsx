@@ -17,11 +17,9 @@ import {
   User,
   Pagination,
 } from "@nextui-org/react";
-import { PlusIcon } from "../components/icons/PlusIcon";
 import { VerticalDotsIcon } from "../components/icons/VerticalDotsIcon";
 import { SearchIcon } from "../components/icons/SearchIcon";
 import { ChevronDownIcon } from "../components/icons/ChevronDownIcon";
-// import { columns, statusOptions } from "./data";
 import { capitalize } from "./utils";
 import ErrorAuth from "../components/ErrorAuth";
 import EditIcon from "@mui/icons-material/Edit";
