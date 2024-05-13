@@ -37,7 +37,7 @@ const EmpresaItem = ({ empresa, isLoggedIn }) => {
   const handleEmailChange = (e) => setSubTitle(e.target.value);
   const handleHeadquartersChange = (e) => setCategory(e.target.value);
   const handleWebsiteChange = (e) => setImageUrl(e.target.value);
-  const handleCuilChange = (e) => setLevel([e.currentKey]);
+  const handleCuilChange = (e) => setLevel(e.currentKey);
   const handleDescriptionChange = (e) => setContent(e.target.value);
 
   const handleSubmit = async (e) => {
