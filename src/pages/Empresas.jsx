@@ -26,9 +26,10 @@ import { capitalize } from "./utils";
 import ErrorAuth from "../components/ErrorAuth";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import CheckIcon from "@mui/icons-material/Check";
 
 const statusColorMap = {
-  true: "success", 
+  true: "success",
   false: "warning",
 };
 const columns = [
@@ -63,6 +64,31 @@ const Empresas = ({ isLoggedIn }) => {
   });
   const [page, setPage] = React.useState(1);
   const [companies, setCompanies] = React.useState([]);
+  const [approveAction, setApproveAction] = React.useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`${API_URL}/company`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            accessToken: `${isLoggedIn}`,
+          },
+        });
+        const data = await response.json();
+        setCompanies(data);
+        console.log("paso por aca");
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    // Volver a obtener la lista de empresas cuando approveAction cambie
+    if (approveAction) {
+      fetchData();
+      setApproveAction(false);
+    }
+  }, [approveAction, isLoggedIn]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -96,9 +122,30 @@ const Empresas = ({ isLoggedIn }) => {
         setCompanies((prevCompanies) =>
           prevCompanies.filter((company) => company._id !== id)
         );
-        successToast("Usuario eliminado con éxito");
+        successToast("Empresa eliminada con éxito");
       } else {
         console.error("Error deleting company:", await response.text());
+        errorToast("Ups, ha ocurrido un error");
+      }
+    } catch (error) {
+      console.error("Error deleting company:", error);
+    }
+  };
+
+  const handleConfirm = async (id) => {
+    try {
+      const response = await fetch(`${API_URL}/company/${id}/confirm`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          accessToken: `${isLoggedIn}`,
+        },
+      });
+      if (response.ok) {
+        setApproveAction(!approveAction);
+        successToast("Empresa aprobada con éxito");
+      } else {
+        console.error("Error approving company:", await response.text());
         errorToast("Ups, ha ocurrido un error");
       }
     } catch (error) {
@@ -217,7 +264,7 @@ const Empresas = ({ isLoggedIn }) => {
             size="sm"
             variant="flat"
           >
-            { company.isApproved ? "active" : "pending"}
+            {company.isApproved ? "Confirmada" : "Pendiente"}
           </Chip>
         );
       case "actions":
@@ -231,7 +278,15 @@ const Empresas = ({ isLoggedIn }) => {
               </DropdownTrigger>
               <DropdownMenu>
                 {/*  <DropdownItem>View</DropdownItem> */}
-                <DropdownItem href={`/company/${company._id}`}>
+                {!company.isApproved ? (
+                  <DropdownItem onClick={() => handleConfirm(company._id)}>
+                    <CheckIcon className="p-1 text-green-600" />
+                    Aprobar
+                  </DropdownItem>
+                ) : (
+                  ""
+                )}
+                <DropdownItem href={`/empresas/${company._id}`}>
                   <EditIcon className="p-1 text-yellow-600" />
                   Editar
                 </DropdownItem>
