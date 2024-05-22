@@ -452,7 +452,7 @@ const errorToast = (text)=>{
             </TableColumn>
           )}
         </TableHeader>
-        <TableBody emptyContent={"No users found"} items={sortedItems}>
+        <TableBody emptyContent={"No users found"} items={sortedItems} isLoading={true}>
           {(item) => (
             <TableRow key={item._id}>
               {(columnKey) => (
