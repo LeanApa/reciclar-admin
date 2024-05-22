@@ -16,6 +16,7 @@ import {
   Chip,
   User,
   Pagination,
+  CircularProgress
 } from "@nextui-org/react";
 import { VerticalDotsIcon } from "../components/icons/VerticalDotsIcon";
 import { SearchIcon } from "../components/icons/SearchIcon";
@@ -63,6 +64,7 @@ const Empresas = ({ isLoggedIn }) => {
   const [page, setPage] = React.useState(1);
   const [companies, setCompanies] = React.useState([]);
   const [approveAction, setApproveAction] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -470,6 +472,10 @@ const Empresas = ({ isLoggedIn }) => {
 
   return !isLoggedIn ? (
     <ErrorAuth isLoggedIn={isLoggedIn} />
+  ) : isLoading ? (
+    <div>
+      <CircularProgress label="Loading..." />
+    </div>
   ) : (
     <div>
       <ToastContainer

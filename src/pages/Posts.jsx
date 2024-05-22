@@ -17,6 +17,7 @@ import {
   User,
   Link,
   Pagination,
+  CircularProgress
 } from "@nextui-org/react";
 import { PlusIcon } from "../components/icons/PlusIcon";
 import { VerticalDotsIcon } from "../components/icons/VerticalDotsIcon";
@@ -58,6 +59,7 @@ const Posts = ({ isLoggedIn }) => {
   });
   const [page, setPage] = React.useState(1);
   const [posts, setPosts] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -409,6 +411,10 @@ const errorToast = (text)=>{
 
   return !isLoggedIn ? (
     <ErrorAuth isLoggedIn={isLoggedIn} />
+  ) : isLoading ? (
+    <div>
+      <CircularProgress label="Loading..." />
+    </div>
   ) : (
     <div>
       <ToastContainer
