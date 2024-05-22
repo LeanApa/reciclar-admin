@@ -16,6 +16,7 @@ import {
   Chip,
   User,
   Pagination,
+  CircularProgress,
 } from "@nextui-org/react";
 import { PlusIcon } from "../components/icons/PlusIcon";
 import { VerticalDotsIcon } from "../components/icons/VerticalDotsIcon";
@@ -24,8 +25,8 @@ import { ChevronDownIcon } from "../components/icons/ChevronDownIcon";
 // import { columns, statusOptions } from "./data";
 import { capitalize } from "./utils";
 import ErrorAuth from "../components/ErrorAuth";
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const statusColorMap = {
   active: "success",
@@ -40,7 +41,14 @@ const columns = [
   { name: "EMAIL", uid: "email" },
   { name: "ACTIONS", uid: "actions" },
 ];
-const INITIAL_VISIBLE_COLUMNS = ["id", "name", "role", "age","email", "actions"];
+const INITIAL_VISIBLE_COLUMNS = [
+  "id",
+  "name",
+  "role",
+  "age",
+  "email",
+  "actions",
+];
 const API_URL = import.meta.env.VITE_API_URL;
 
 const Usuarios = ({ isLoggedIn }) => {
@@ -57,7 +65,7 @@ const Usuarios = ({ isLoggedIn }) => {
   });
   const [page, setPage] = React.useState(1);
   const [users, setUsers] = React.useState([]);
-  const [isLoading, setIsLoading] = React.useState(true)
+  const [isLoading, setIsLoading] = React.useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -66,7 +74,7 @@ const Usuarios = ({ isLoggedIn }) => {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            "accessToken": `${isLoggedIn}`,
+            accessToken: `${isLoggedIn}`,
           },
         });
         const data = await response.json();
@@ -85,7 +93,7 @@ const Usuarios = ({ isLoggedIn }) => {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-          "accessToken": `${isLoggedIn}`,
+          accessToken: `${isLoggedIn}`,
         },
       });
       if (response.ok) {
@@ -93,7 +101,7 @@ const Usuarios = ({ isLoggedIn }) => {
         successToast("Usuario eliminado con éxito");
       } else {
         console.error("Error deleting user:", await response.text());
-        errorToast("Ups, ha ocurrido un error")
+        errorToast("Ups, ha ocurrido un error");
       }
     } catch (error) {
       console.error("Error deleting user:", error);
@@ -109,21 +117,21 @@ const Usuarios = ({ isLoggedIn }) => {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: "colored"
+      theme: "colored",
     });
   };
-const errorToast = (text)=>{
-  toast.error(text, {
-    position: "bottom-right",
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: "colored",
+  const errorToast = (text) => {
+    toast.error(text, {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
     });
-  }
+  };
 
   const hasSearchFilter = Boolean(filterValue);
 
@@ -230,10 +238,14 @@ const errorToast = (text)=>{
                 </Button>
               </DropdownTrigger>
               <DropdownMenu>
-               {/*  <DropdownItem>View</DropdownItem> */}
-                <DropdownItem href={`/usuarios/${user._id}`}><EditIcon className="p-1 text-yellow-600"/>Editar</DropdownItem>
+                {/*  <DropdownItem>View</DropdownItem> */}
+                <DropdownItem href={`/usuarios/${user._id}`}>
+                  <EditIcon className="p-1 text-yellow-600" />
+                  Editar
+                </DropdownItem>
                 <DropdownItem onClick={() => handleDelete(user._id)}>
-                <DeleteIcon className="p-1 text-red-600"/>Eliminar
+                  <DeleteIcon className="p-1 text-red-600" />
+                  Eliminar
                 </DropdownItem>
               </DropdownMenu>
             </Dropdown>
@@ -338,7 +350,7 @@ const errorToast = (text)=>{
                 ))}
               </DropdownMenu>
             </Dropdown>
-           {/*  <Button color="primary" endContent={<PlusIcon />}>
+            {/*  <Button color="primary" endContent={<PlusIcon />}>
               Add New
             </Button> */}
           </div>
@@ -413,6 +425,10 @@ const errorToast = (text)=>{
 
   return !isLoggedIn ? (
     <ErrorAuth isLoggedIn={isLoggedIn} />
+  ) : isLoading ? (
+    <div>
+      <CircularProgress label="Loading..." />
+    </div>
   ) : (
     <div>
       <ToastContainer
@@ -454,7 +470,7 @@ const errorToast = (text)=>{
             </TableColumn>
           )}
         </TableHeader>
-        <TableBody isLoading={isLoading} items={sortedItems} >
+        <TableBody emptyContent={"No users found"} items={sortedItems}>
           {(item) => (
             <TableRow key={item._id}>
               {(columnKey) => (
