@@ -57,6 +57,7 @@ const Usuarios = ({ isLoggedIn }) => {
   });
   const [page, setPage] = React.useState(1);
   const [users, setUsers] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(true)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -70,6 +71,7 @@ const Usuarios = ({ isLoggedIn }) => {
         });
         const data = await response.json();
         setUsers(data); // Establecer el estado dentro del try
+        setIsLoading(!isLoading);
       } catch (error) {
         console.log(error);
       }
@@ -452,7 +454,7 @@ const errorToast = (text)=>{
             </TableColumn>
           )}
         </TableHeader>
-        <TableBody emptyContent={"No users found"} items={sortedItems} isLoading={true}>
+        <TableBody items={sortedItems} isLoading={isLoading}>
           {(item) => (
             <TableRow key={item._id}>
               {(columnKey) => (
