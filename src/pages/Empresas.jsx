@@ -78,6 +78,7 @@ const Empresas = ({ isLoggedIn }) => {
         });
         const data = await response.json();
         setCompanies(data);
+        setIsLoading(!isLoading);
         console.log("paso por aca");
       } catch (error) {
         console.log(error);
