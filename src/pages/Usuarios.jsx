@@ -454,7 +454,7 @@ const errorToast = (text)=>{
             </TableColumn>
           )}
         </TableHeader>
-        <TableBody items={sortedItems} isLoading={isLoading}>
+        <TableBody isLoading={isLoading} items={sortedItems} >
           {(item) => (
             <TableRow key={item._id}>
               {(columnKey) => (
