@@ -103,6 +103,7 @@ const Empresas = ({ isLoggedIn }) => {
         });
         const data = await response.json();
         setCompanies(data); // Establecer el estado dentro del try
+        setIsLoading(!isLoading);
       } catch (error) {
         console.log(error);
       }
