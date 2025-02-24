@@ -232,7 +232,7 @@ const errorToast = (text)=>{
                {/*  <DropdownItem>View</DropdownItem> */}
                 <DropdownItem href={`/posts/${post._id}`}><EditIcon className="p-1 text-yellow-600"/>Editar</DropdownItem>
                 <DropdownItem onClick={() => handleDelete(post._id)}>
-                  <DeleteIcon className="p-1 text-red-600"/>Elimnar
+                  <DeleteIcon className="p-1 text-red-600"/>Eliminar
                 </DropdownItem>
               </DropdownMenu>
             </Dropdown>
