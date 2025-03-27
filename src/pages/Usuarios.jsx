@@ -427,7 +427,7 @@ const Usuarios = ({ isLoggedIn }) => {
     <ErrorAuth isLoggedIn={isLoggedIn} />
   ) : isLoading ? (
     <div>
-      <CircularProgress label="Loading..." />
+      <CircularProgress label="Cargando..." />
     </div>
   ) : (
     <div>

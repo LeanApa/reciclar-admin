@@ -344,7 +344,7 @@ const errorToast = (text)=>{
         </div>
         <div className="flex justify-between items-center">
           <span className="text-default-400 text-small">
-            Total {Posts.length} Posts
+            Total {posts.length} Posts
           </span>
           <label className="flex items-center text-default-400 text-small">
             Filas por página:
@@ -414,7 +414,7 @@ const errorToast = (text)=>{
     <ErrorAuth isLoggedIn={isLoggedIn} />
   ) : isLoading ? (
     <div>
-      <CircularProgress label="Loading..." />
+      <CircularProgress label="Cargando..." />
     </div>
   ) : (
     <div>
