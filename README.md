@@ -29,6 +29,15 @@ Sigue estos pasos para configurar y ejecutar el proyecto:
     
     ```
 
+## Configuración
+
+Para poder utilizar el proyecto de manera local, en conjunto con "reciclar-api", es necesario configurar un archivo `.env` en la raíz del proyecto con la siguiente variable de entorno:
+
+```plaintext
+VITE_API_URL=http://localhost:8080/api
+
+```
+
 ## Ejecución en Desarrollo
 
 Para ejecutar el proyecto en modo de desarrollo con Vite:
